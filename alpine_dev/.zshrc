@@ -15,4 +15,4 @@ compinit
 export PS1="%n@%M:%d %% "
 
 # source the syntax hilighting
-source $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/dev/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

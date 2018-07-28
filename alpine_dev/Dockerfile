@@ -7,6 +7,9 @@ RUN apk update \
 	&& apk add vim
 
 RUN cd /root \
+	&& ( [ -d dev ] && echo "Found dev at $(pwd dev)" ) || ( mkdir dev )
+
+RUN cd /root/dev \
 	&& git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 
 COPY .bashrc /root
