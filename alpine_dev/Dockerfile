@@ -3,6 +3,7 @@ FROM alpine:3.8
 RUN apk update \
 	&& apk add bash bash-completion \
 	&& apk add zsh \
+	&& apk add curl \
 	&& apk add git \
 	&& apk add vim
 
