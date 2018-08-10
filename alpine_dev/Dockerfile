@@ -17,7 +17,10 @@ RUN cd /root \
 #	&& git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 
 COPY .bashrc /root
+COPY .inputrc /root
 #COPY .zshrc /root
 
-#CMD ["bash"]
+COPY bootstrap.sh /root
+
+# CMD ["cd"]
 
