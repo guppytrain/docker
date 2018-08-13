@@ -7,6 +7,8 @@
 echo "Building: ${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" 
 sudo docker build -t "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" .
 
+echo "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}"
+
 if [ -n "$1" ]; then
     echo "Applying custom tag: \"$1\""
     sudo docker tag "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" "$1"
