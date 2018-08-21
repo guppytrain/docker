@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# docker build forbids upward directory traversal, so symlink the next level up
+TMP_TGT="tmp"
+TMP_SRC="../common"
+if [ ! -d "$TMP_TGT" ]; then
+    echo "No TMP_TGT, creating..."
+    cp -r $TMP_SRC $TMP_TGT
+fi
+
 . ../CONFIG
 
 . ./CONFIG
@@ -23,4 +31,7 @@ else
         "No custom tag applied.  Tag this image with the following command:" \
         "sudo docker tag \"${FULL_IMAGE_NAME}\" \"<CUSTOM_TAG>\""
 fi
+
+echo "Removing TMP_TGT"
+rm -rf $TMP_TGT
 

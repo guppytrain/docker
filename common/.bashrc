@@ -1,4 +1,3 @@
-alias update='sudo apt-get update'
 export HISTTIMEFORMAT="%d/%m/%y %T "
 export PS1='\u@\h:\W \$ '
 alias l='ls -CF'

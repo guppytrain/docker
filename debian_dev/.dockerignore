@@ -1,3 +1,7 @@
+# ignore tmp files
+*/tmp
+*/tmp/*
+
 # ignore git related files
 
 */.git

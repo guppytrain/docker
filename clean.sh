@@ -17,7 +17,9 @@ if [ -n "$TAGNAME" ]; then
         sudo docker container rm $c
     done
 
-    [ -z $CNTRS ] && echo "No tagged containers found"
+    if [ -z $CNTRS ]; then 
+        echo "No tagged containers found"
+    fi
 
     TAG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$DEF_TAGNAME")
 
@@ -26,8 +28,6 @@ if [ -n "$TAGNAME" ]; then
         sudo docker image rm $TAG
     fi
 fi
-
-echo "About to build: $FULL_IMAGE_NAME"
 
 if [ -n "$FULL_IMAGE_NAME" ]; then
     echo "Checking for containers built from "$FULL_IMAGE_NAME""
@@ -38,7 +38,9 @@ if [ -n "$FULL_IMAGE_NAME" ]; then
         sudo docker container rm $c
     done
 
-    [ -z $CNTRS ] && echo "No formal containers found"
+    if [ -z $CNTRS ]; then
+        echo "No formal containers found"
+    fi
 
     IMG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$FULL_IMAGE_NAME")
 

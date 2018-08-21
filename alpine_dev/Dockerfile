@@ -8,8 +8,8 @@ RUN apk update \
 	&& apk add vim
 
 COPY .bashrc /root
-COPY .inputrc /root
-#COPY .zshrc /root
+COPY ./tmp/.inputrc /root
+#COPY ./tmp/.zshrc /root
 
 RUN cd /root \
 	&& ( [ -d share ] && echo "Found share at $(pwd dev)" ) || ( mkdir share )
