@@ -13,9 +13,9 @@ RUN echo "Installing base apps..." \
 	# && apt-get install -y vim \
     && echo "Done with base apps"
 
-COPY common/.bashrc /root
-COPY common/.inputrc /root
-#COPY common/.zshrc /root
+COPY tmp/.bashrc /root
+COPY tmp/.inputrc /root
+#COPY tmp/.zshrc /root
 
 COPY install.sh /root/bin/install.sh
 
