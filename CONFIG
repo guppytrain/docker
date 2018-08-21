@@ -1,0 +1,2 @@
+USER=$DOCKERID
+DEF_TAGNAME="build_latest"

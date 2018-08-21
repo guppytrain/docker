@@ -1,1 +1,1 @@
-sudo docker run -it myalpine bash
+sudo docker run -it build_latest bash
