@@ -11,19 +11,21 @@ COPY .bashrc /root
 COPY .inputrc /root
 #COPY .zshrc /root
 
-COPY bootstrap.sh /root
-
 RUN cd /root \
 	&& ( [ -d share ] && echo "Found share at $(pwd dev)" ) || ( mkdir share )
 
 RUN cd /root \
 	&& ( [ -d dev ] && echo "Found dev at $(pwd dev)" ) || ( mkdir dev )
 
-RUN cd /root \
-    && ( [ -f "./bootstrap.sh" ] && ./bootstrap.sh )
+RUN cd /root/dev \
+	&& git clone https://github.com/guppytrain/planter.git
+
+# run setup
+WORKDIR /root/dev/planter
+RUN [ -f "devseeds.sh" ] && ./devseeds.sh
 
 WORKDIR /root/dev/linux/bin
-RUN [ -f "setup.sh" ] && ./setup.sh
+RUN [ -f "setup.sh" ] && ./setup.sh -n
 
 #RUN cd /root/dev \
 #	&& git clone https://github.com/zsh-users/zsh-syntax-highlighting.git

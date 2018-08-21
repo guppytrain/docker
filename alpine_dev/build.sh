@@ -1,24 +1,26 @@
 #!/bin/sh
 
-# set -ex
+. ../CONFIG
 
-. ./BUILD
+. ./CONFIG
 
-echo "Building: ${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" 
-sudo docker build -t "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" .
+TAGNAME=${1:-$DEF_TAGNAME};
 
-echo "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}"
+FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICRO}"
 
-if [ -n "$1" ]; then
-    echo "Applying custom tag: \"$1\""
-    sudo docker tag "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" "$1"
+echo "Building: ${FULL_IMAGE_NAME}" 
+sudo docker build -t "${FULL_IMAGE_NAME}" .
 
-    echo "sudo docker run -it $1 bash" > "$HOME/dev/docker/docker.cmd"
+if [ -n "$TAGNAME" ]; then
+    echo "Applying custom tag: \"$TAGNAME\""
+    sudo docker tag "${FULL_IMAGE_NAME}" "$TAGNAME"
+
+    # echo "sudo docker run -it "${FULL_IMAGE_NAME}" bash" > "$HOME/dev/docker/docker.cmd"
+    echo "sudo docker run -it $TAGNAME bash" > "$HOME/dev/docker/docker.cmd"
 else
-    echo "sudo docker run -it "${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}" bash" > "$HOME/dev/docker/docker.cmd"
-
     printf \
         "\n\n%s\n\n%s\n\n" \
         "No custom tag applied.  Tag this image with the following command:" \
-        "sudo docker tag \"${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${MAJOR_MICRO}\" \"<CUSTOM_TAG>\""
+        "sudo docker tag \"${FULL_IMAGE_NAME}\" \"<CUSTOM_TAG>\""
 fi
+
