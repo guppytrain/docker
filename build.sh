@@ -4,7 +4,7 @@
 TMP_TGT="tmp"
 TMP_SRC="../common"
 if [ ! -d "$TMP_TGT" ]; then
-    echo "No TMP_TGT, creating..."
+    echo "No TMP_TGT: ${TMP_TGT}, creating..."
     cp -r $TMP_SRC $TMP_TGT
 fi
 
@@ -32,6 +32,6 @@ else
         "sudo docker tag \"${FULL_IMAGE_NAME}\" \"<CUSTOM_TAG>\""
 fi
 
-echo "Removing TMP_TGT"
+echo "Removing TMP_TGT: ${TMP_TGT}"
 rm -rf $TMP_TGT
 
