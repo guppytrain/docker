@@ -41,4 +41,3 @@ RUN cd /root \
 WORKDIR /root
 
 CMD ["/bin/bash"]
-

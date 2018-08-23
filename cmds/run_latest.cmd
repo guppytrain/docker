@@ -1,1 +1,1 @@
-sudo docker run -it build_latest bash
+sudo docker run -it "guppytrain/alpine_dev:a50" bash

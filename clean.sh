@@ -1,12 +1,48 @@
-#!/bin/sh
+#!/bin/bash
 
 . ../CONFIG
-
 . ./CONFIG
 
-TAGNAME=${1:-$DEF_TAGNAME};
+# remove command files
+rm -rf "$CMD_DIR"
+rm $BASE_CMD_DIR/*.cmd
 
-FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICRO}"
+if [ -n "$DEF_TAG_NAME" ]; then
+    echo "Checking for containers built from "$DEF_TAG_NAME""
+    CNTRS=$(sudo docker container ls -a -q --filter=ancestor="$DEF_TAG_NAME")
+
+    for c in $CNTRS; do 
+        echo "Container: $c"
+        sudo docker container rm $c
+    done
+
+    if [ -z $CNTRS ]; then 
+        echo "No tagged containers found"
+    fi
+
+    TAG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$DEF_TAG_NAME")
+
+    if [ -n "$TAG" ]; then
+        echo "removing image $TAG"
+        sudo docker image rm $TAG
+    fi
+fi
+
+if [ ! -e "$BUILT_FILE" ]; then
+    echo "No BUILT_FILE found, no need to continue..."
+    exit 1
+fi
+
+# assign names
+LOG="$(cat ${BUILT_FILE})"
+
+# TAGNAME=${1:-$DEF_TAG_NAME}
+TAGNAME="$(sed -n '3p' <(echo "$LOG"))"
+
+# FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICRO}"
+FULL_IMAGE_NAME="$(sed -n '1p' <(echo "$LOG"))"
+
+IMAGE_ID="$(sed -n '2p' <(echo "$LOG"))"
 
 if [ -n "$TAGNAME" ]; then
     echo "Checking for containers built from "$TAGNAME""
@@ -47,6 +83,27 @@ if [ -n "$FULL_IMAGE_NAME" ]; then
     if [ -n "$IMG" ]; then
         echo "removing image $FULL_IMAGE_NAME"
         sudo docker image rm $FULL_IMAGE_NAME
+    fi
+fi
+
+if [ -n "$IMAGE_ID" ]; then
+    echo "Checking for containers built from "$IMAGE_ID""
+    CNTRS=$(sudo docker container ls -a -q --filter=ancestor="$IMAGE_ID")
+
+    for c in $CNTRS; do 
+        echo "Container: $c"
+        sudo docker container rm $c
+    done
+
+    if [ -z $CNTRS ]; then
+        echo "No formal containers found"
+    fi
+
+    IMG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$IMAGE_ID")
+
+    if [ -n "$IMG" ]; then
+        echo "removing image $IMAGE_ID"
+        sudo docker image rm $IMAGE_ID
     fi
 fi
 

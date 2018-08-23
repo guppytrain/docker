@@ -32,5 +32,5 @@ RUN [ -f "setup.sh" ] && ./setup.sh -n
 
 WORKDIR /root
 
-# CMD ["cd"]
+CMD ["/bin/bash"]
 

@@ -1,5 +1,9 @@
+tmp
 */tmp
 */tmp/*
 
-*/.built.images
-*/.built.tags
+cmds/*.cmd
+*/cmds
+*/cmds/*
+
+*/.built
