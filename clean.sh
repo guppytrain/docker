@@ -12,7 +12,7 @@ if [ -n "$DEF_TAG_NAME" ]; then
     CNTRS=$(sudo docker container ls -a -q --filter=ancestor="$DEF_TAG_NAME")
 
     for c in $CNTRS; do 
-        echo "Container: $c"
+        echo "Removing Container: $c"
         sudo docker container rm $c
     done
 
@@ -22,8 +22,8 @@ if [ -n "$DEF_TAG_NAME" ]; then
 
     TAG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$DEF_TAG_NAME")
 
-    if [ -n "$TAG" ]; then
-        echo "removing image $TAG"
+    if [ $(( $(sed -n '$=' <(echo "$TAG")) )) -eq 1 ]; then
+        echo "Removing def image $TAG"
         sudo docker image rm $TAG
     fi
 fi
@@ -49,7 +49,7 @@ if [ -n "$TAGNAME" ]; then
     CNTRS=$(sudo docker container ls -a -q --filter=ancestor="$TAGNAME")
 
     for c in $CNTRS; do 
-        echo "Container: $c"
+        echo "Removing Container: $c"
         sudo docker container rm $c
     done
 
@@ -57,10 +57,11 @@ if [ -n "$TAGNAME" ]; then
         echo "No tagged containers found"
     fi
 
-    TAG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$DEF_TAGNAME")
+    TAG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$TAGNAME")
 
-    if [ -n "$TAG" ]; then
-        echo "removing image $TAG"
+    # if [ -n "$TAG" ]; then
+    if [ $(( $(sed -n '$=' <(echo "$TAG")) )) -eq 1 ]; then
+        echo "Removing tagged image $TAG"
         sudo docker image rm $TAG
     fi
 fi
@@ -70,7 +71,7 @@ if [ -n "$FULL_IMAGE_NAME" ]; then
     CNTRS=$(sudo docker container ls -a -q --filter=ancestor="$FULL_IMAGE_NAME")
 
     for c in $CNTRS; do 
-        echo "Container: $c"
+        echo "Removing Container: $c"
         sudo docker container rm $c
     done
 
@@ -80,8 +81,9 @@ if [ -n "$FULL_IMAGE_NAME" ]; then
 
     IMG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$FULL_IMAGE_NAME")
 
-    if [ -n "$IMG" ]; then
-        echo "removing image $FULL_IMAGE_NAME"
+    # if [ -n "$IMG" ]; then
+    if [ $(( $(sed -n '$=' <(echo "$TAG")) )) -eq 1 ]; then
+        echo "Removing full image $FULL_IMAGE_NAME"
         sudo docker image rm $FULL_IMAGE_NAME
     fi
 fi
@@ -91,19 +93,15 @@ if [ -n "$IMAGE_ID" ]; then
     CNTRS=$(sudo docker container ls -a -q --filter=ancestor="$IMAGE_ID")
 
     for c in $CNTRS; do 
-        echo "Container: $c"
-        sudo docker container rm $c
+        echo "Removing Container: $c"
+        # sudo docker container rm $c
     done
 
     if [ -z $CNTRS ]; then
         echo "No formal containers found"
     fi
 
-    IMG=$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$IMAGE_ID")
-
-    if [ -n "$IMG" ]; then
-        echo "removing image $IMAGE_ID"
-        sudo docker image rm $IMAGE_ID
-    fi
+    echo "Removing built image $IMAGE_ID"
+    sudo docker image rm $IMAGE_ID
 fi
 
