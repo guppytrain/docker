@@ -54,9 +54,10 @@ echo "START_LATEST cmd: $(cat ${CMD_DIR}/start_latest.cmd)"
 
 chmod 755 ${CMD_DIR}/*
 
-# copy commands to base folder; the latest specific build becomes the latest base build
-cp "${CMD_DIR}/run_latest.cmd" "${BASE_CMD_DIR}/."
-cp "${CMD_DIR}/start_latest.cmd" "${BASE_CMD_DIR}/."
+# link commands to base folder; the latest specific build becomes the latest base build
+echo "Creating symlinks to newly created commands"
+ln -s -r -f "${CMD_DIR}/run_latest.cmd" "${BASE_CMD_DIR}/." 
+ln -s -r -f "${CMD_DIR}/start_latest.cmd" "${BASE_CMD_DIR}/."
 
 # tagging
 if [ -n "$TAGNAME" ]; then
