@@ -24,8 +24,8 @@ RUN cd /root/dev \
 WORKDIR /root/dev/planter
 RUN [ -f "devseeds.sh" ] && ./devseeds.sh
 
-WORKDIR /root/dev/linux/bin
-RUN [ -f "setup.sh" ] && ./setup.sh -n
+# WORKDIR /root/dev/linux/bin
+# RUN [ -f "setup.sh" ] && ./setup.sh -n
 
 #RUN cd /root/dev \
 #	&& git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
