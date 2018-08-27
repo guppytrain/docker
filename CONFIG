@@ -11,3 +11,7 @@ CMD_DIR="./cmds"
 # misc
 DEF_TAG_NAME="build_latest"
 BUILT_FILE=".built"
+
+# post build, shell related, etc
+VOLUME_CONFIG_FILE="./CONFIG.volume"
+SHARE_CONFIG_FILE="${SHARE_DIR}/etc/include/.docker"

@@ -59,9 +59,6 @@ echo "Creating symlinks to newly created commands"
 ln -s -r -f "${CMD_DIR}/run_latest.cmd" "${BASE_CMD_DIR}/." 
 ln -s -r -f "${CMD_DIR}/start_latest.cmd" "${BASE_CMD_DIR}/."
 
-# put/include config in the places needed for aliases to work
-cp -f ../CONFIG.shrc "$SHARE_DIR/etc/include/.docker"
-
 # tagging
 if [ -n "$TAGNAME" ]; then
     echo "Applying local tag: \"$TAGNAME\""
