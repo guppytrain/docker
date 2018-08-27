@@ -1,2 +1,2 @@
-RUN_LATEST="sudo docker run -it <IMG> bash"
-START_LATEST="sudo docker container start -i $(sudo docker container ls -lqa -f ancestor=<IMG>)"
+RUN_LATEST="sudo docker run -it -v $SHARED_VOLUME:$CONTAINER_VOLUME <IMG> bash"
+START_LATEST="sudo docker container start -i -v $SHARED_VOLUME:$CONTAINER_VOLUME $(sudo docker container ls -lqa -f ancestor=<IMG>)"

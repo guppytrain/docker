@@ -1,5 +1,7 @@
-USER=$DOCKERID
+# general
+USER="$DOCKERID"
 
+# build time
 # folders; from the context of <DOCKER>/<FLAVOR>_dev/.
 TMP_TGT="tmp"
 TMP_SRC="../common"

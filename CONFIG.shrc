@@ -1,0 +1,3 @@
+# run time
+SHARED_VOLUME="$SHARE_DIR/docker"
+CONTAINER_VOLUME="/root/share/docker"
