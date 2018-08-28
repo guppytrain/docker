@@ -32,6 +32,9 @@ RUN cd /root \
 # WORKDIR /root/dev/planter
 # RUN [ -f "devseeds.sh" ] && ./devseeds.sh
 #
+# WORKDIR /root/dev/planter
+# RUN [ -f "duso.sh" ] && ./duso.sh
+#
 # WORKDIR /root/dev/linux/bin
 # RUN [ -f "setup.sh" ] && ./setup.sh -n
 #

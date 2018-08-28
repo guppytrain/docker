@@ -12,16 +12,11 @@ echo "Done with apt updates"
 cd /root/dev
 git clone https://github.com/guppytrain/planter.git
 
-# strip sudo if not there 
-if [ -z "$(which sudo)" ]; then 
-    cd /root/dev/linux
-    rp.sh -a sudo bin etc
-fi
-
 # run setup
 cd /root/dev/planter
 [ -f "devseeds.sh" ] && ./devseeds.sh
 
+# strip sudo if not there 
 cd /root/dev/planter
 [ -f "duso.sh" ] && ./duso.sh
 
