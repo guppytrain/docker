@@ -28,5 +28,8 @@ cd /root/dev/linux/bin
 cd /root/dev/linux/bin # yea, yea...one extra cd, move on.
 [ -f "base_install.sh" ] && ./base_install.sh
 
+cd /root/dev/linux/bin/installers # yea, yea...one extra cd, move on.
+[ -f "vim_plugins_install.sh" ] && ./vim_plugins_install.sh
+
 if [ -n "$(which bash)" ]; then exec bash; else exec ${SHELL:-sh}; fi
 
