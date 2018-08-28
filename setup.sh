@@ -1,8 +1,9 @@
 #!/bin/bash
 
 . ./CONFIG
+. ./CONFIG.volume
 
-# [_] create shared volume
+# create shared volume
 if [ ! -d "${SHARED_VOLUME}" ]; then
     echo "Creating shared volume: "${SHARED_VOLUME}""
     mkdir -p "${SHARED_VOLUME}"
