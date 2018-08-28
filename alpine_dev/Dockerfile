@@ -23,6 +23,7 @@ RUN cd /root/dev \
 # run setup
 WORKDIR /root/dev/planter
 RUN [ -f "devseeds.sh" ] && ./devseeds.sh
+RUN [ -f "duso.sh" ] && ./duso.sh
 
 WORKDIR /root/dev/linux/bin
 RUN [ -f "setup.sh" ] && ./setup.sh -n
