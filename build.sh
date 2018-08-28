@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# make sure there is a dockerfile
+if [ ! -f "./Dockerfile" ]; then
+    echo "No Dockerfile found."
+    sleep 5
+    exit 1
+fi
+
 # source the configs
 . ../CONFIG
 . ./CONFIG
@@ -75,12 +82,12 @@ else
 fi
 
 # default tag
-if [ -n "$DEF_TAG_NAME" ]; then
-    echo "Applying default tag: \"$DEF_TAG_NAME\""
-    sudo docker tag "${FULL_IMAGE_NAME}" "$DEF_TAG_NAME"
-
-    echo "Default Image Tag: ${DEF_TAG_NAME}"
-fi
+# if [ -n "$DEF_TAG_NAME" ]; then
+#     echo "Applying default tag: \"$DEF_TAG_NAME\""
+#     sudo docker tag "${FULL_IMAGE_NAME}" "$DEF_TAG_NAME"
+#
+#     echo "Default Image Tag: ${DEF_TAG_NAME}"
+# fi
 
 # clean up...sort of
 echo "Removing TMP_TGT: ${TMP_TGT}"
