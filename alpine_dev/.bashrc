@@ -6,3 +6,4 @@ alias ll='ls -alF'
 alias ls='ls --color=auto'
 alias rl='exec bash'
 source /etc/profile.d/bash_completion.sh
+export FZF_DEFAULT_COMMAND='find . -maxdepth 10 -type f'

@@ -22,6 +22,9 @@ fi
 cd /root/dev/planter
 [ -f "devseeds.sh" ] && ./devseeds.sh
 
+cd /root/dev/planter
+[ -f "duso.sh" ] && ./duso.sh
+
 cd /root/dev/linux/bin
 [ -f "setup.sh" ] && ./setup.sh -n
 
