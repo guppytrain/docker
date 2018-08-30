@@ -9,7 +9,7 @@ BASE_CMD_DIR="../cmds"
 CMD_DIR="./cmds"
 
 # misc
-# DEF_TAG_NAME="build_latest"
+TAG_PREFIX="current_"
 BUILT_FILE=".built"
 
 # post build, shell related, etc

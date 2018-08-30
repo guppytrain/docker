@@ -27,7 +27,7 @@ if [ ! -d "$CMD_DIR" ]; then
 fi
 
 # define some stuff
-TAGNAME=${1:-$TAG_NAME};
+TAGNAME=${1:-${TAG_PREFIX}${IMAGE}};
 FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICRO}"
 
 # build the image, and log the name and id
