@@ -1,6 +1,7 @@
 FROM alpine:latest
 
-RUN apk update \
+RUN echo "bash completion INIT" \
+    && apk update \
     && apk add bash bash-completion \
     && echo "bash completion DONE"
 
@@ -16,7 +17,8 @@ ENV ALPINE_GLIBC_I18N_PACKAGE_FILENAME glibc-i18n-2.28-r0.apk
 COPY glibc /root/tmp/
 
 # Here we install GNU libc (aka glibc) and set C.UTF-8 locale as default.
-RUN apk update \ 
+RUN echo "glibc 2.28 INIT" \
+    && apk update \ 
     && apk add --no-cache --virtual=.build-dependencies ca-certificates \ 
     && apk add --no-cache --allow-untrusted \
         # "/root/tmp/$ALPINE_GLIBC_BASE_PACKAGE_FILENAME" \
@@ -34,22 +36,32 @@ RUN apk update \
     && rm "/root/tmp/$ALPINE_GLIBC_I18N_PACKAGE_FILENAME" \
     && echo "glibc DONE"
 
+# Requirements for nvm, node, and npm
+RUN echo "nvm alpine requirements INIT" \
+    && apk add -U openssl ncurses coreutils python2 make gcc g++ libgcc linux-headers util-linux binutils findutils \
+    && echo "nvm alpine requirements DONE" 
+
 # run setup
-RUN apk add git \
+RUN echo "Setup INIT" \
+    && apk add git \
     && cd /root \
 	&& mkdir share \
 	&& mkdir dev \
     && cd /root/dev \
-    # script seeds
+    && echo "Grabbing git repos" \
 	&& git clone https://github.com/guppytrain/planter.git \    
     && cd /root/dev/planter \
+    && echo "Running devseeds.sh" \
     && ([ -f "devseeds.sh" ] && ./devseeds.sh) \
+    && echo "Running duso.sh" \
     && ([ -f "duso.sh" ] && ./duso.sh) \
-    # initial setup and install
+    && echo "initial setup" \
     && cd /root/dev/linux/bin \
     && ([ -f "setup.sh" ] && ./setup.sh -n) \
+    && echo "base install" \
     && ([ -f "base_install.sh" ] && ./base_install.sh) \
     && cd /root/dev/linux/bin/installers \
+    && echo "vim plugins" \
     && ([ -f "vim_plugins_install.sh" ] && ./vim_plugins_install.sh) \
     && echo "Setup DONE"
 
