@@ -21,9 +21,19 @@ $PLANTER_DIR/plant.sh
 
 # switch workdir and import env
 LINUX_DIR="$HOME/dev/linux"
+
+# change cwd
 cd $LINUX_DIR/bin
+
 # \. ./include/env.sh
+
+# strip sudo
+./util/duso.sh
 
 # start installing
 ./setup.sh -n
 
+./base_install.sh
+
+# individual installers
+./installers/vim_plugins_install.sh

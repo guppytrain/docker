@@ -1,1 +1,3 @@
-sudo docker build -t guppytrain/amazon_dev_base:latest -f Dockerfile.base .
+#!/bin/sh
+
+sudo docker build -t $DOCKERID/amazonlinux_base:latest -f Dockerfile.base .
