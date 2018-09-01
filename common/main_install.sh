@@ -20,9 +20,10 @@ fi
 $PLANTER_DIR/plant.sh
 
 # switch workdir and import env
-cd "$HOME/dev/linux/bin"
+LINUX_DIR="$HOME/dev/linux"
+cd $LINUX_DIR/bin
 # \. ./include/env.sh
 
 # start installing
-./setup -n
+./setup.sh -n
 
