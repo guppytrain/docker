@@ -2,7 +2,7 @@
 
 # get planter
 PLANTER_REPO="https://github.com/guppytrain/planter.git"
-PLANTER_DIR="planter"
+PLANTER_DIR="$HOME/dev/planter"
 
 if [ -d "$PLANTER_DIR" ]; then
     cd "$PLANTER_DIR"
@@ -15,4 +15,14 @@ else
 	git clone "$PLANTER_REPO" "$PLANTER_DIR"
 
 fi
+
+# do some planting
+$PLANTER_DIR/plant.sh
+
+# switch workdir and import env
+cd "$HOME/dev/linux/bin"
+# \. ./include/env.sh
+
+# start installing
+./setup -n
 

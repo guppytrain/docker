@@ -9,10 +9,13 @@ FROM guppytrain/amazonlinux_base
 
 RUN yum clean -q expire-cache \
     && yum install -y bash bash-completion \
+    && yum install -y which \
     && yum install -y git
 
 WORKDIR /root
 
+COPY tmp/.bashrc /root
+COPY tmp/.inputrc /root
 COPY tmp/install.sh /root
 
 # RUN ["/bin/bash", "install.sh"]
