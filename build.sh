@@ -26,6 +26,10 @@ if [ ! -d "$CMD_DIR" ]; then
     mkdir $CMD_DIR
 fi
 
+# combine pre, main, post install commands
+printf "%s\n\n%s\n\n%s\n" "$(cat pre_install.sh)" "$(cat ${TMP_TGT}/main_install.sh)" "$(cat post_install.sh)" > "${TMP_TGT}/install.sh"
+chmod 755 "${TMP_TGT}/install.sh"
+
 # define some stuff
 TAGNAME=${1:-${TAG_PREFIX}${IMAGE}};
 FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICRO}"

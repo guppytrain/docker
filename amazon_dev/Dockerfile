@@ -13,9 +13,9 @@ RUN yum clean -q expire-cache \
 
 WORKDIR /root
 
-# COPY install.sh /root
+COPY tmp/install.sh /root
 
 # RUN ["/bin/bash", "install.sh"]
-# RUN /root/install.sh
+RUN /root/install.sh
 
 CMD ["/bin/bash"]
