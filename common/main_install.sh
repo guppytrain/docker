@@ -2,7 +2,9 @@
 
 echo "Starting Main Install..." 
 
-# get planter
+export DEV_DIR="$HOME/dev"
+
+    # get planter
 export PLANTER_REPO="https://github.com/guppytrain/planter.git" 
 export PLANTER_DIR="$HOME/dev/planter" 
 
@@ -19,8 +21,8 @@ else
 fi
 
 # do some planting
-$PLANTER_DIR/plant.sh \
-&& export DEV_DIR="$HOME/dev" \
+cd $PLANTER_DIR \
+&& ./plant.sh \
 && cd $DEV_DIR/linux/bin/util \
 && ./duso.sh \
 && cd $DEV_DIR/linux/bin \
