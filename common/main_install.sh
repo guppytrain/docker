@@ -1,8 +1,10 @@
 # MAIN INSTALL
 
+echo "Starting Main Install..." 
+
 # get planter
-PLANTER_REPO="https://github.com/guppytrain/planter.git"
-PLANTER_DIR="$HOME/dev/planter"
+export PLANTER_REPO="https://github.com/guppytrain/planter.git" 
+export PLANTER_DIR="$HOME/dev/planter" 
 
 if [ -d "$PLANTER_DIR" ]; then
     cd "$PLANTER_DIR"
@@ -17,23 +19,13 @@ else
 fi
 
 # do some planting
-$PLANTER_DIR/plant.sh
-
-# switch workdir and import env
-LINUX_DIR="$HOME/dev/linux"
-
-# change cwd
-cd $LINUX_DIR/bin
-
-# \. ./include/env.sh
-
-# strip sudo
-./util/duso.sh
-
-# start installing
-./setup.sh -n
-
-./base_install.sh
-
-# individual installers
-./installers/vim_plugins_install.sh
+$PLANTER_DIR/plant.sh \
+&& export DEV_DIR="$HOME/dev" \
+&& cd $DEV_DIR/linux/bin/util \
+&& ./duso.sh \
+&& cd $DEV_DIR/linux/bin \
+&& ./setup.sh -n \
+&& ./base_install.sh \
+&& cd $DEV_DIR/linux/bin/installers \
+&& ./vim_plugins_install.sh \
+&& echo "Finished Main Install"

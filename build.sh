@@ -36,7 +36,7 @@ FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICR
 
 # build the image, and log the name and id
 echo "Building: ${FULL_IMAGE_NAME}" 
-sudo docker build -t "${FULL_IMAGE_NAME}" .
+sudo docker build --no-cache -t "${FULL_IMAGE_NAME}" .
 
 printf "%s\n" "${FULL_IMAGE_NAME}" > "$BUILT_FILE" # overwrite contents anew
 
