@@ -1,6 +1,6 @@
 # MAIN INSTALL
 
-echo "Starting Main Install..." 
+echo "Starting Image Install..." 
 
 export DEV_DIR="$HOME/dev"
 
@@ -22,12 +22,10 @@ fi
 
 # do some planting
 cd $PLANTER_DIR \
-&& ./plant.sh \
-&& cd $DEV_DIR/linux/bin/util \
-&& ./duso.sh \
+&& ./plant.sh -d \
 && cd $DEV_DIR/linux/bin \
 && ./setup.sh -n \
 && ./base_install.sh \
 && cd $DEV_DIR/linux/bin/installers \
 && ./vim_plugins_install.sh \
-&& echo "Finished Main Install"
+&& echo "Finished Image Install"

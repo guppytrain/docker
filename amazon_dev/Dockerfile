@@ -7,10 +7,13 @@
 # FROM amazonlinux
 FROM guppytrain/amazonlinux_base
 
-RUN yum clean -q expire-cache \
+RUN echo "Base Install..." \
+    && yum clean -q expire-cache \
     && yum install -y bash bash-completion \
     && yum install -y which \
-    && yum install -y git
+    && yum install -y git \
+    && yum install -y vim \
+    && echo "Base Installed."
 
 WORKDIR /root
 

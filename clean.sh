@@ -95,3 +95,5 @@ if [ -n "$IMAGE_ID" ]; then
     fi
 fi
 
+# remove .built
+rm .built
