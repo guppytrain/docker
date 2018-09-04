@@ -13,31 +13,9 @@ RUN echo "Installing base apps..." \
 
 COPY tmp/.bashrc /root
 COPY tmp/.inputrc /root
-#COPY tmp/.zshrc /root
 
 COPY tmp/install.sh /root/bin/install.sh
-
-# RUN cd /root \
-	# && ( [ -d share ] && echo "Found share at $(pwd dev)" ) || ( mkdir share )
-
-# RUN cd /root \
-	# && ( [ -d dev ] && echo "Found dev at $(pwd dev)" ) || ( mkdir dev )
-
-# RUN cd /root/dev \
-# 	&& git clone https://github.com/guppytrain/planter.git
-#
-# # run setup
-# WORKDIR /root/dev/planter
-# RUN [ -f "devseeds.sh" ] && ./devseeds.sh
-#
-# WORKDIR /root/dev/planter
-# RUN [ -f "duso.sh" ] && ./duso.sh
-#
-# WORKDIR /root/dev/linux/bin
-# RUN [ -f "setup.sh" ] && ./setup.sh -n
-#
-#RUN cd /root/dev \
-#	&& git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+# not running install.sh because of unresolved issues in image build step
 
 WORKDIR /root
 
