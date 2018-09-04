@@ -1,6 +1,6 @@
 # MAIN INSTALL
 
-echo "Starting Image Install..." 
+echo "Starting Main Image Install..." 
 
 export DEV_DIR="$HOME/dev"
 
@@ -28,4 +28,4 @@ cd $PLANTER_DIR \
 && ./base_install.sh \
 && cd $DEV_DIR/linux/bin/installers \
 && ./vim_plugins_install.sh \
-&& echo "Finished Image Install"
+&& echo "Finished Main Image Install"
