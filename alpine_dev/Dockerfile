@@ -51,10 +51,8 @@ RUN echo "Setup INIT" \
     && echo "Grabbing git repos" \
 	&& git clone https://github.com/guppytrain/planter.git \    
     && cd /root/dev/planter \
-    && echo "Running devseeds.sh" \
-    && ([ -f "devseeds.sh" ] && ./devseeds.sh) \
-    && echo "Running duso.sh" \
-    && ([ -f "duso.sh" ] && ./duso.sh) \
+    && echo "Running plant.sh" \
+    && ([ -f "plant.sh" ] && ./plant.sh -d) \
     && echo "initial setup" \
     && cd /root/dev/linux/bin \
     && ([ -f "setup.sh" ] && ./setup.sh -n) \
