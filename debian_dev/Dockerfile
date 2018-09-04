@@ -6,24 +6,22 @@ RUN apt-get update \
     && echo "Done with apt-get updates"
 
 RUN echo "Installing base apps..." \
-	# && apt-get install -y bash-completion \
-	# && apt-get install -y zsh \
-	# && apt-get install -y curl \
-	# && apt-get install -y git \
-	# && apt-get install -y vim \
+	&& apt-get install -y bash bash-completion \
+	&& apt-get install -y git \
+	&& apt-get install -y vim \
     && echo "Done with base apps"
 
 COPY tmp/.bashrc /root
 COPY tmp/.inputrc /root
 #COPY tmp/.zshrc /root
 
-COPY install.sh /root/bin/install.sh
+COPY tmp/install.sh /root/bin/install.sh
 
-RUN cd /root \
-	&& ( [ -d share ] && echo "Found share at $(pwd dev)" ) || ( mkdir share )
+# RUN cd /root \
+	# && ( [ -d share ] && echo "Found share at $(pwd dev)" ) || ( mkdir share )
 
-RUN cd /root \
-	&& ( [ -d dev ] && echo "Found dev at $(pwd dev)" ) || ( mkdir dev )
+# RUN cd /root \
+	# && ( [ -d dev ] && echo "Found dev at $(pwd dev)" ) || ( mkdir dev )
 
 # RUN cd /root/dev \
 # 	&& git clone https://github.com/guppytrain/planter.git
