@@ -27,7 +27,7 @@ if [ ! -d "$CMD_DIR" ]; then
 fi
 
 # combine pre, main, post install commands
-printf "%s\n\n%s\n\n%s\n" "$([ -f 'pre_install.sh' ] && cat pre_install.sh)" "$(cat ${TMP_TGT}/main_install.sh)" "$([ -f 'post_install.sh' ] && cat post_install.sh)" > "${TMP_TGT}/install.sh"
+printf "%s\n\n%s\n\n%s\n" "$([ -f 'pre_install.sh' ] && cat pre_install.sh)" "$([ -f 'main_install.sh' ] && cat main_install.sh || cat ${TMP_TGT}/main_install.sh)" "$([ -f 'post_install.sh' ] && cat post_install.sh)" > "${TMP_TGT}/install.sh"
 chmod 755 "${TMP_TGT}/install.sh"
 
 # define some stuff

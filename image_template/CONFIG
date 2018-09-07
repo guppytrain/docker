@@ -1,0 +1,6 @@
+# define custom image name or use folder name
+IMAGE="$(pwd | grep -E -o "([^\/]+)$")"
+VERSION_MAJOR="a"
+VERSION_MINOR="0"
+VERSION_MICRO="0"
+TAG_NAME="build_latest_${IMAGE}"
