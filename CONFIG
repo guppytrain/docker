@@ -13,5 +13,6 @@ TAG_PREFIX="current_"
 BUILT_FILE=".built"
 
 # post build, shell related, etc
+BASH_CONFIG_FILE="./CONFIG.bash"
 VOLUME_CONFIG_FILE="./CONFIG.volume"
 SHARE_CONFIG_FILE="${SHARE_DIR}/etc/include/.docker"
