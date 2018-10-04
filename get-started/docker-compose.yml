@@ -16,6 +16,18 @@ services:
     networks:
       - webnet
     # key: SWMTKN-1-49uzsczq5mrsb0zsd5o39tcjwwb7ucu2g7766hbgavusrecbsj-6kjewnj853zdx557tb4xkhjip
+  visualizer:
+      image: dockersamples/visualizer:stable
+      ports:
+          - "8080:8080"
+      volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+      deploy:
+          # specifies that this service will only be placed/run in a swarm manager, not a node
+          placement:
+              constraints: [node.role == manager]
+      networks:
+          - webnet
 networks:
   webnet:
 
