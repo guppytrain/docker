@@ -27,7 +27,20 @@ services:
           placement:
               constraints: [node.role == manager]
       networks:
-          - webnet
+        - webnet
+  redis:
+      image: redis
+      ports:
+        - "6379:6379"
+      volumes:
+        - "/home/docker/data:/data"
+      deploy:
+          # specifies that this service will only be placed/run in a swarm manager, not a node
+          placement:
+              constraints: [node.role == manager]
+      command: redis-server --appendonly yes
+      networks:
+        - webnet
 networks:
   webnet:
 
