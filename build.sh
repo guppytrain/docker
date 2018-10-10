@@ -36,11 +36,11 @@ FULL_IMAGE_NAME="${USER}/${IMAGE}:${VERSION_MAJOR}${VERSION_MINOR}${VERSION_MICR
 
 # build the image, and log the name and id
 echo "Building: ${FULL_IMAGE_NAME}" 
-sudo docker build --no-cache --rm --force-rm -t "${FULL_IMAGE_NAME}" .
+docker build --no-cache --rm --force-rm -t "${FULL_IMAGE_NAME}" .
 
 printf "%s\n" "${FULL_IMAGE_NAME}" > "$BUILT_FILE" # overwrite contents anew
 
-IMAGE_ID="$(sudo docker image ls -q -f dangling=false $FULL_IMAGE_NAME)"
+IMAGE_ID="$(docker image ls -q -f dangling=false $FULL_IMAGE_NAME)"
 
 printf "%s\n" "${IMAGE_ID}" >> "$BUILT_FILE" # must be append, not overwrite
 
@@ -49,14 +49,14 @@ echo "Image Info: ${FULL_IMAGE_NAME}, ${IMAGE_ID}"
 # build the commands    
 templates="$(cat ../cmds/TEMPLATES)"
 
-# echo "sudo docker run -it "${FULL_IMAGE_NAME}" bash" > "$HOME/dev/docker/docker.cmd"
+# echo "docker run -it "${FULL_IMAGE_NAME}" bash" > "$HOME/dev/docker/docker.cmd"
 echo "Creating RUN_LATEST command"
 # sed -n '/RUN_LATEST/p' <(echo "$templates") | sed -n "s/^RUN_LATEST=//; s/^\"//; s/\"$//; s@<IMG>@\"${TAGNAME}\"@;p" > "${CMD_DIR}/run_latest.cmd"
 sed -n '/RUN_LATEST/p' <(echo "$templates") | sed -n "s/^RUN_LATEST=//; s/^\"//; s/\"$//; s@<IMG>@\"${FULL_IMAGE_NAME}\"@;p" > "${CMD_DIR}/run_latest.cmd"
 # sed -n '/RUN_LATEST/p' <(echo "$templates") | sed -n "s/^RUN_LATEST=//; s/^\"//; s/\"$//; s/<IMG>/\"${IMAGE_ID}\"/;p" > "${CMD_DIR}/run_latest.cmd"
 echo "RUN_LATEST cmd: $(cat ${CMD_DIR}/run_latest.cmd)"
 
-# echo "sudo docker run -it $TAGNAME bash" > "$HOME/dev/docker/run_latest.cmd"
+# echo "docker run -it $TAGNAME bash" > "$HOME/dev/docker/run_latest.cmd"
 echo "Creating START_LATEST command"
 # sed -n '/START_LATEST/p' <(echo "$templates") | sed -n "s/^START_LATEST=//; s/^\"//; s/\"$//; s@<IMG>@\"${TAGNAME}\"@;p" > "${CMD_DIR}/start_latest.cmd"
 sed -n '/START_LATEST/p' <(echo "$templates") | sed -n "s/^START_LATEST=//; s/^\"//; s/\"$//; s@<IMG>@\"${FULL_IMAGE_NAME}\"@;p" > "${CMD_DIR}/start_latest.cmd"
@@ -73,7 +73,7 @@ ln -s -r -f "${CMD_DIR}/start_latest.cmd" "${BASE_CMD_DIR}/."
 # tagging
 if [ -n "$TAGNAME" ]; then
     echo "Applying local tag: \"$TAGNAME\""
-    sudo docker tag "${FULL_IMAGE_NAME}" "$TAGNAME"
+    docker tag "${FULL_IMAGE_NAME}" "$TAGNAME"
 
     echo "Image Tag: ${TAGNAME}"
 
@@ -82,13 +82,13 @@ else
     printf \
         "\n\n%s\n\n%s\n\n" \
         "No local tag applied.  Tag this image with the following command:" \
-        "sudo docker tag \"${FULL_IMAGE_NAME}\" \"<TAG>\""
+        "docker tag \"${FULL_IMAGE_NAME}\" \"<TAG>\""
 fi
 
 # default tag
 # if [ -n "$DEF_TAG_NAME" ]; then
 #     echo "Applying default tag: \"$DEF_TAG_NAME\""
-#     sudo docker tag "${FULL_IMAGE_NAME}" "$DEF_TAG_NAME"
+#     docker tag "${FULL_IMAGE_NAME}" "$DEF_TAG_NAME"
 #
 #     echo "Default Image Tag: ${DEF_TAG_NAME}"
 # fi

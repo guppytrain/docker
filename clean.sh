@@ -26,12 +26,12 @@ IMAGE_ID="$(sed -n '2p' <(echo "$LOG"))"
 # remove tagged image and created containers
 if [ -n "$TAGNAME" ]; then
     echo "Checking for containers built from "$TAGNAME""
-    CNTRS="$(sudo docker container ls -a -q --filter=ancestor="$TAGNAME")"
+    CNTRS="$(docker container ls -a -q --filter=ancestor="$TAGNAME")"
 
     while IFS= read -r -d $'\n'; do
         [ -n "$REPLY" ] && (
             echo "Removing Container: $REPLY"
-            echo "Removed Container: $(sudo docker container rm "$REPLY")"
+            echo "Removed Container: $(docker container rm "$REPLY")"
         )
     done < <(echo "$CNTRS")
 
@@ -39,24 +39,24 @@ if [ -n "$TAGNAME" ]; then
         echo "No tagged containers found"
     fi
 
-    TAG="$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$TAGNAME")"
+    TAG="$(docker image ls --format "{{.Repository}}:{{.Tag}}" "$TAGNAME")"
 
     # if [ -n "$TAG" ]; then
     if [ -n "$TAG" ] && [ $(( $(sed -n '$=' <(echo "$TAG")) )) -eq 1 ]; then
         echo "Removing tagged image $TAG"
-        sudo docker image rm "$TAG"
+        docker image rm "$TAG"
     fi
 fi
 
 # remove full image and created containers
 if [ -n "$FULL_IMAGE_NAME" ]; then
     echo "Checking for containers built from "$FULL_IMAGE_NAME""
-    CNTRS="$(sudo docker container ls -a -q --filter=ancestor="$FULL_IMAGE_NAME")"
+    CNTRS="$(docker container ls -a -q --filter=ancestor="$FULL_IMAGE_NAME")"
 
     while IFS= read -r -d $'\n'; do
         [ -n "$REPLY" ] && (
             echo "Removing Container: $REPLY"
-            echo "Removed Container: $(sudo docker container rm "$REPLY")"
+            echo "Removed Container: $(docker container rm "$REPLY")"
         )
     done < <(echo "$CNTRS")
 
@@ -64,24 +64,24 @@ if [ -n "$FULL_IMAGE_NAME" ]; then
         echo "No formal containers found"
     fi
 
-    IMG="$(sudo docker image ls --format "{{.Repository}}:{{.Tag}}" "$FULL_IMAGE_NAME")"
+    IMG="$(docker image ls --format "{{.Repository}}:{{.Tag}}" "$FULL_IMAGE_NAME")"
 
     # if [ -n "$IMG" ]; then
     if [ -n "$TAG" ] && [ $(( $(sed -n '$=' <(echo "$TAG")) )) -eq 1 ]; then
         echo "Removing full image $FULL_IMAGE_NAME"
-        sudo docker image rm "$FULL_IMAGE_NAME"
+        docker image rm "$FULL_IMAGE_NAME"
     fi
 fi
 
 # remove id'ed image and created containers
 if [ -n "$IMAGE_ID" ]; then
     echo "Checking for containers built from "$IMAGE_ID""
-    CNTRS="$(sudo docker container ls -a -q --filter=ancestor="$IMAGE_ID")"
+    CNTRS="$(docker container ls -a -q --filter=ancestor="$IMAGE_ID")"
 
     while IFS= read -r -d $'\n'; do
         [ -n "$REPLY" ] && (
             echo "Removing Container: $REPLY"
-            echo "Removed Container: $(sudo docker container rm "$REPLY")"
+            echo "Removed Container: $(docker container rm "$REPLY")"
         )
     done < <(echo "$CNTRS")
 
@@ -89,9 +89,9 @@ if [ -n "$IMAGE_ID" ]; then
         echo "No formal containers found"
     fi
 
-    if [ -n "$(sudo docker image ls -q | grep "$IMAGE_ID")" ]; then
+    if [ -n "$(docker image ls -q | grep "$IMAGE_ID")" ]; then
         echo "Removing built image $IMAGE_ID"
-        sudo docker image rm "$IMAGE_ID"
+        docker image rm "$IMAGE_ID"
     fi
 fi
 
